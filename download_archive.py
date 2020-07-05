@@ -22,6 +22,12 @@ REPORT_PAGES = [
     "{}/index.php/berichte-2016-2.html".format(BASE_URL),
     "{}/index.php/berichte-2015-2.html".format(BASE_URL),
     "{}/index.php/berichte-2014-2.html".format(BASE_URL),
+    "{}/index.php/berichte-2013-3.html".format(BASE_URL),
+    "{}/index.php/berichte-2012-3.html".format(BASE_URL),
+    "{}/index.php/berichte-2011-3.html".format(BASE_URL),
+    "{}/index.php/berichte-2010-3.html".format(BASE_URL),
+    "{}/index.php/berichte-2009-3.html".format(BASE_URL),
+    "{}/index.php/berichte-2008-3.html".format(BASE_URL),
 ]
 
 BLACKLIST_PAGES = [
@@ -53,7 +59,6 @@ def get_report_page(report_page):
     page = session.get(report_page).html.find('.item-page', first=True)
     if not page:
         raise ValueError("Unable to retrieve report page content.")
-
 
     # get title from page content
     title = page.find('h2', first=True)

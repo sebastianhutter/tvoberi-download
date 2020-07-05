@@ -22,12 +22,11 @@ REPORT_PAGES = [
     "{}/index.php/berichte-2016-2.html".format(BASE_URL),
     "{}/index.php/berichte-2015-2.html".format(BASE_URL),
     "{}/index.php/berichte-2014-2.html".format(BASE_URL),
-    "{}/index.php/berichte-2013-3.html".format(BASE_URL),
-    "{}/index.php/berichte-2012-3.html".format(BASE_URL),
-    "{}/index.php/berichte-2011-3.html".format(BASE_URL),
-    "{}/index.php/berichte-2010-3.html".format(BASE_URL),
-    "{}/index.php/berichte-2009-3.html".format(BASE_URL),
-    "{}/index.php/berichte-2008-3.html".format(BASE_URL),
+]
+
+BLACKLIST_PAGES = [
+    "https://legacy.tvo.ch/index.php/fotos-2015.html",
+    "http://www.tvo.ch/fotos/2013/13-dml/index.htm"
 ]
 
 ##
@@ -126,10 +125,11 @@ if __name__ == "__main__":
             print("Parsing reports in {}".format(reportpage))
             # loop trough all pages found
             for page in get_report_links(reportpage):
-                print("Parse report page {}".format(page))
-                # retrieve content from pages and create pdf
-                p = get_report_page(page)
-                pdfkit.from_string(p.body, os.path.join('data', p.filename))
+                if not page in BLACKLIST_PAGES:
+                    print("Parse report page {}".format(page))
+                    # retrieve content from pages and create pdf
+                    p = get_report_page(page)
+                    pdfkit.from_string(p.body, os.path.join('data', p.filename))
     except:
         traceback.print_exc(file=sys.stderr)
         sys.exit(1)

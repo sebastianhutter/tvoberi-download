@@ -69,7 +69,7 @@ def get_report_page(report_page):
     # get the pages html content
     # replace all relative img tags with absolute paths
     body = page.html
-    body = body.replace('<img src="/', '<img src="{}/'.format(BASE_URL))
+    body = body.replace('src="/images/', '<img src="{}/images/'.format(BASE_URL))
 
     # return page object
     return ReportPage(title.text, creation_date, body)
